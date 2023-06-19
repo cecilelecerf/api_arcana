@@ -1,0 +1,40 @@
+.dockerignore
+docker-compose.yml
+docker-compose.override.yml
+docker-compose.env
+
+.env
+vendor/
+node_modules/
+.ides/
+# Fichiers et répertoires générés automatiquement
+/var/*
+!/var/cache/
+!/var/cache/.gitkeep
+!/var/logs/
+!/var/logs/.gitkeep
+!/var/sessions/
+!/var/sessions/.gitkeep
+/.env.local
+/.phpunit.result.cache
+/.php_cs.cache
+/.idea
+/.vscode
+/vendor/
+/node_modules/
+/public/bundles/
+
+# Fichiers spécifiques à certains IDE
+/.phpstorm.meta.php
+/.idea/workspace.xml
+/.idea/php.xml
+/.idea/deployment.xml
+/.idea/encodings.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/.name
+/.idea/.gitignore
+
+# Fichiers de dépendances Composer
+/composer.lock
