@@ -45,9 +45,9 @@ class AppFixtures extends Fixture
                 ->setFirstname($faker->firstname())
                 ->setStreet($faker->streetAddress())
                 ->setCity($faker->city())
-                ->setPostalCode($faker->postcode())
-                ->setPhone($faker->e164PhoneNumber())
-                ->setDateOfBirth($faker->dateTime())
+                ->setPostalCode("95100")
+                ->setPhone("0629697478")
+                ->setDateOfBirth(new \DateTimeImmutable("2023-05-28T09:10:18.005Z"))
                 ->setFamily($family);
         $manager->persist($people);
 

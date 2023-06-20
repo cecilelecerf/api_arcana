@@ -116,7 +116,7 @@ class People
     #[Assert\NotBlank(message:"Veuillez bien remplir tous les champs")]
     #[Assert\Length(
         min: 5,
-        max: 5,
+        max: 6,
         minMessage: 'Le code postal doit comporter au moins {{ limit }} caractères',
         maxMessage: 'Le code postal ne peut pas dépasser {{ limit }} caractères',
     )]

@@ -37,12 +37,9 @@ class PicturePost
         minMessage: 'Le chemin d\accès doit comporter au moins {{ limit }} caractères',
         maxMessage: 'Le chemin d\accès ne peut pas dépasser {{ limit }} caractères'
     )]
-    #[Assert\Regex(
-        pattern:"/^\/[a-zA-Z0-9_\-\/.]+$/",
-        message:"L'écriture du chemin d'accès est invalide"
-    )]
     #[Groups([
-        'read:post', 'write:post'
+        'read:post', 'write:post',        
+        'read:event', 'write:event'
     ])]
     private ?string $adress = null;
 
@@ -59,18 +56,23 @@ class PicturePost
         message:"L'alt est invalide"
     )]
     #[Groups([
-        'read:post', 'write:post'
+        'read:post', 'write:post',
+        'read:event', 'write:event'
     ])]
     private ?string $alt = null;
 
-    #[ORM\OneToMany(mappedBy: 'post_id', targetEntity: Post::class)]
-    private Collection $posts;
+    #[ORM\OneToMany(mappedBy: 'picture_id', targetEntity: Post::class)]
+    private ?Collection $posts;
+
+    #[ORM\OneToMany(mappedBy: 'picture_id', targetEntity: Event::class)]
+    private ?Collection $events;
 
     public function __construct()
     {
         $this->posts = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
         $this->modifiedAt = new \DateTimeImmutable();
+        $this->events = new ArrayCollection();
     }
 
 
@@ -152,6 +154,36 @@ class PicturePost
             // set the owning side to null (unless already changed)
             if ($post->getPictureId() === $this) {
                 $post->setPictureId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+            $event->setPictureId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getPictureId() === $this) {
+                $event->setPictureId(null);
             }
         }
 
